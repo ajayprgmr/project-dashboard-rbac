@@ -76,4 +76,3 @@ src/
 2. Add automated tests (React Testing Library) to cover role guards and reducers.
 3. Wire optional bonus features: activity log, GraphQL mock, or websocket simulation.
 
-Happy shipping! 🎯
