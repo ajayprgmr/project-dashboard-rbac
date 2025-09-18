@@ -1,0 +1,62 @@
+[
+  {
+    "id": "t1",
+    "projectId": "p1",
+    "title": "Wireframe hero section",
+    "description": "Create responsive hero layouts for desktop and mobile.",
+    "status": "in_progress",
+    "priority": "high",
+    "dueDate": "2025-09-25",
+    "assigneeId": "u4"
+  },
+  {
+    "id": "t2",
+    "projectId": "p1",
+    "title": "Integrate CMS",
+    "description": "Hook marketing pages up to headless CMS.",
+    "status": "todo",
+    "priority": "medium",
+    "dueDate": "2025-10-05",
+    "assigneeId": "u4"
+  },
+  {
+    "id": "t3",
+    "projectId": "p2",
+    "title": "Implement auth flow",
+    "description": "Add email magic link auth for mobile.",
+    "status": "review",
+    "priority": "high",
+    "dueDate": "2025-09-12",
+    "assigneeId": "u5"
+  },
+  {
+    "id": "t4",
+    "projectId": "p2",
+    "title": "App store assets",
+    "description": "Produce marketing assets for both app stores.",
+    "status": "todo",
+    "priority": "low",
+    "dueDate": "2025-09-08",
+    "assigneeId": "u5"
+  },
+  {
+    "id": "t5",
+    "projectId": "p3",
+    "title": "Create anomaly alerts",
+    "description": "Add alerting rules for pipeline slowdowns.",
+    "status": "in_progress",
+    "priority": "high",
+    "dueDate": "2025-11-10",
+    "assigneeId": "u4"
+  },
+  {
+    "id": "t6",
+    "projectId": "p3",
+    "title": "Document data contracts",
+    "description": "Draft data governance model for events.",
+    "status": "todo",
+    "priority": "medium",
+    "dueDate": "2025-10-20",
+    "assigneeId": "u6"
+  }
+]

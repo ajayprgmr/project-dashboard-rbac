@@ -1,0 +1,32 @@
+[
+  {
+    "id": "p1",
+    "name": "Pixelwave Redesign",
+    "description": "Revamp marketing website with new branding assets.",
+    "status": "in_progress",
+    "dueDate": "2025-10-15",
+    "projectManagerId": "u2",
+    "memberIds": ["u2", "u4", "u6"],
+    "tag": "Marketing"
+  },
+  {
+    "id": "p2",
+    "name": "Mobile App Launch",
+    "description": "Ship MVP for cross-platform project tracking app.",
+    "status": "in_progress",
+    "dueDate": "2025-09-30",
+    "projectManagerId": "u3",
+    "memberIds": ["u3", "u5"],
+    "tag": "Product"
+  },
+  {
+    "id": "p3",
+    "name": "Data Pipeline Hardening",
+    "description": "Stabilize analytics ingestion with monitoring dashboards.",
+    "status": "planning",
+    "dueDate": "2025-12-01",
+    "projectManagerId": "u2",
+    "memberIds": ["u2", "u4", "u6"],
+    "tag": "Platform"
+  }
+]

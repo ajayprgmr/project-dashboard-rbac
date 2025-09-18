@@ -1,0 +1,50 @@
+[
+  {
+    "id": "u1",
+    "name": "Aarav Sharma",
+    "email": "aarav.sharma@fixl.test",
+    "password": "admin123",
+    "role": "admin",
+    "assignedProjectIds": ["p1", "p2", "p3"]
+  },
+  {
+    "id": "u2",
+    "name": "Maya Patel",
+    "email": "maya.patel@fixl.test",
+    "password": "manager123",
+    "role": "project_manager",
+    "assignedProjectIds": ["p1", "p3"]
+  },
+  {
+    "id": "u3",
+    "name": "Rohan Iyer",
+    "email": "rohan.iyer@fixl.test",
+    "password": "manager123",
+    "role": "project_manager",
+    "assignedProjectIds": ["p2"]
+  },
+  {
+    "id": "u4",
+    "name": "Neha Singh",
+    "email": "neha.singh@fixl.test",
+    "password": "dev123",
+    "role": "developer",
+    "assignedProjectIds": ["p1", "p3"]
+  },
+  {
+    "id": "u5",
+    "name": "Kabir Mehta",
+    "email": "kabir.mehta@fixl.test",
+    "password": "dev123",
+    "role": "developer",
+    "assignedProjectIds": ["p2"]
+  },
+  {
+    "id": "u6",
+    "name": "Ananya Rao",
+    "email": "ananya.rao@fixl.test",
+    "password": "viewer123",
+    "role": "viewer",
+    "assignedProjectIds": ["p3"]
+  }
+]
