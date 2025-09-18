@@ -65,14 +65,3 @@ src/
 ├─ store/            # Redux Toolkit store configuration & persistence
 └─ utils/            # Mock API + localStorage helpers
 ```
-
-## State Persistence & Mock API
-- State slices are persisted via `store.subscribe` to `localStorage`.
-- `src/utils/mockApi.js` simulates server calls with latency, hydrated from persisted state to keep mock data and Redux in sync.
-- Async thunks wrap these calls to keep UI responsive and realistic.
-
-## Suggested Next Steps
-1. Deploy to Vercel or Netlify (`npm run build` ➜ upload `dist/`).
-2. Add automated tests (React Testing Library) to cover role guards and reducers.
-3. Wire optional bonus features: activity log, GraphQL mock, or websocket simulation.
-
