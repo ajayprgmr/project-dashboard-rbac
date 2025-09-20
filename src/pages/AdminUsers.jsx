@@ -175,16 +175,16 @@ const AdminUsersPage = () => {
                     />
                   </TableCell>
                   <TableCell>
-                    <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                       {assignedProjects.length ? (
                         assignedProjects.map((name) => <Chip key={name} label={name} size="small" variant="outlined" />)
                       ) : (
                         <Chip label="No projects" size="small" variant="outlined" />
                       )}
-                    </Stack>
+                    </Box>
                   </TableCell>
                   <TableCell align="right">
-                    <Stack direction="row" spacing={1} justifyContent="flex-end">
+                    <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end' }}>
                       <Tooltip title="Update role">
                         <IconButton color="primary" onClick={() => handleOpenDialog(user)} size="small">
                           <EditIcon fontSize="small" />
@@ -202,7 +202,7 @@ const AdminUsersPage = () => {
                           </IconButton>
                         </span>
                       </Tooltip>
-                    </Stack>
+                    </Box>
                   </TableCell>
                 </TableRow>
               );

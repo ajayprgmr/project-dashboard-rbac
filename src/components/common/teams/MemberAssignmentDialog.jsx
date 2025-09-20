@@ -54,7 +54,7 @@ const MemberAssignmentDialog = ({ open, project, users, onClose, onSave, loading
           {manager && (
             <Box>
               <Typography variant="subtitle2">Project lead</Typography>
-              <Stack direction="row" spacing={1} alignItems="center" mt={1}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1 }}>
                 <Avatar sx={{ width: 32, height: 32 }}>{manager.name.slice(0, 1)}</Avatar>
                 <Box>
                   <Typography variant="body2">{manager.name}</Typography>
@@ -62,7 +62,7 @@ const MemberAssignmentDialog = ({ open, project, users, onClose, onSave, loading
                     {manager.role.replace('_', ' ')}
                   </Typography>
                 </Box>
-              </Stack>
+              </Box>
             </Box>
           )}
           <FormControl fullWidth>
@@ -84,7 +84,7 @@ const MemberAssignmentDialog = ({ open, project, users, onClose, onSave, loading
             >
               {options.map((user) => (
                 <MenuItem key={user.id} value={user.id}>
-                  <Stack direction="row" spacing={1} alignItems="center">
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <Avatar sx={{ width: 28, height: 28 }}>{user.name.slice(0, 1)}</Avatar>
                     <Box>
                       <Typography variant="body2">{user.name}</Typography>
@@ -92,7 +92,7 @@ const MemberAssignmentDialog = ({ open, project, users, onClose, onSave, loading
                         {user.role.replace('_', ' ')}
                       </Typography>
                     </Box>
-                  </Stack>
+                  </Box>
                 </MenuItem>
               ))}
             </Select>

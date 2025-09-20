@@ -88,7 +88,7 @@ const TaskBoard = ({
                               <Typography variant="body2" color="text.secondary">
                                 {task.description}
                               </Typography>
-                              <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                                 <Chip label={task.projectName} size="small" variant="outlined" />
                                 <Chip label={`Due ${task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'TBD'}`} size="small" />
                                 <Chip
@@ -102,13 +102,13 @@ const TaskBoard = ({
                                       : 'default'
                                   }
                                 />
-                              </Stack>
-                              <Stack direction="row" spacing={1} justifyContent="space-between" alignItems="center">
+                              </Box>
+                              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
                                 <Typography variant="caption" color="text.secondary">
                                   {task.assigneeName}
                                 </Typography>
                                 {!isReadOnly && (
-                                  <Stack direction="row" spacing={1}>
+                                  <Box sx={{ display: 'flex', gap: 1 }}>
                                     {task.canEdit && (
                                       <Tooltip title="Edit task">
                                         <IconButton size="small" onClick={() => onEdit(task)}>
@@ -123,9 +123,9 @@ const TaskBoard = ({
                                         </IconButton>
                                       </Tooltip>
                                     )}
-                                  </Stack>
+                                  </Box>
                                 )}
-                              </Stack>
+                              </Box>
                             </Stack>
                           </CardContent>
                         </Card>

@@ -1,13 +1,7 @@
 import { useEffect, useMemo } from 'react';
-import {
-  Box,
-  CircularProgress,
-  Grid,
-  Paper,
-  Stack,
-  Typography,
-  Chip,
-} from '@mui/material';
+import { Box, CircularProgress, Paper, Stack, Typography, Chip } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import { alpha, darken, lighten, useTheme } from '@mui/material/styles';
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, PieChart, Pie, Cell, BarChart, Bar } from 'recharts';
 import { format, parseISO } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
@@ -15,14 +9,12 @@ import { fetchReportsSnapshot } from '../features/reports/reportsSlice';
 import { fetchProjects } from '../features/projects/projectsSlice';
 import { fetchTasks } from '../features/tasks/tasksSlice';
 
-const STATUS_COLORS = ['#4f46e5', '#0ea5e9', '#f97316', '#22c55e', '#facc15'];
-const CONTRIBUTOR_COLORS = ['#2563eb', '#7c3aed', '#ec4899', '#0f766e', '#f59e0b'];
-
 const ReportsPage = () => {
   const dispatch = useAppDispatch();
   const reportsState = useAppSelector((state) => state.reports);
   const projectsState = useAppSelector((state) => state.projects);
   const tasksState = useAppSelector((state) => state.tasks);
+  const theme = useTheme();
 
   useEffect(() => {
     if (reportsState.status === 'idle') {
@@ -115,6 +107,37 @@ const ReportsPage = () => {
       .slice(0, 5);
   }, [snapshot]);
 
+  const trendColors = useMemo(
+    () => ({
+      done: theme.palette.secondary.main,
+      planned: theme.palette.primary.main,
+      grid: alpha(theme.palette.divider, theme.palette.mode === 'dark' ? 0.4 : 0.25),
+    }),
+    [theme],
+  );
+
+  const statusColors = useMemo(
+    () => [
+      theme.palette.primary.main,
+      theme.palette.secondary.main,
+      lighten(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.08 : 0.18),
+      lighten(theme.palette.secondary.main, theme.palette.mode === 'dark' ? 0.08 : 0.16),
+      darken(theme.palette.secondary.main, theme.palette.mode === 'dark' ? 0.1 : 0.18),
+    ],
+    [theme],
+  );
+
+  const contributorColors = useMemo(
+    () => [
+      theme.palette.secondary.main,
+      darken(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.08 : 0.15),
+      lighten(theme.palette.secondary.main, theme.palette.mode === 'dark' ? 0.06 : 0.2),
+      theme.palette.primary.light,
+      alpha(theme.palette.secondary.dark, 0.9),
+    ],
+    [theme],
+  );
+
   if (reportsState.status === 'loading' && !snapshot) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6 }}>
@@ -134,8 +157,8 @@ const ReportsPage = () => {
         </Typography>
       </Box>
 
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={3}>
+      <Grid container columns={{ xs: 12, md: 12, lg: 12 }} rowSpacing={2} columnSpacing={2}>
+        <Grid size={{ xs: 12, md: 3 }} sx={{ display: 'flex' }}>
           <Paper variant="outlined" sx={{ p: 2 }}>
             <Typography variant="subtitle2" color="text.secondary">
               Active projects
@@ -146,7 +169,7 @@ const ReportsPage = () => {
             <Chip label={`${metrics.projectCount} total`} size="small" variant="outlined" sx={{ mt: 1 }} />
           </Paper>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid size={{ xs: 12, md: 3 }} sx={{ display: 'flex' }}>
           <Paper variant="outlined" sx={{ p: 2 }}>
             <Typography variant="subtitle2" color="text.secondary">
               Task completion rate
@@ -159,7 +182,7 @@ const ReportsPage = () => {
             </Typography>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid size={{ xs: 12, md: 3 }} sx={{ display: 'flex' }}>
           <Paper variant="outlined" sx={{ p: 2 }}>
             <Typography variant="subtitle2" color="text.secondary">
               Team members
@@ -172,7 +195,7 @@ const ReportsPage = () => {
             </Typography>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid size={{ xs: 12, md: 3 }} sx={{ display: 'flex' }}>
           <Paper variant="outlined" sx={{ p: 2 }}>
             <Typography variant="subtitle2" color="text.secondary">
               Snapshot updated
@@ -187,26 +210,26 @@ const ReportsPage = () => {
         </Grid>
       </Grid>
 
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={7}>
+      <Grid container columns={{ xs: 12, md: 12, lg: 12 }} rowSpacing={2} columnSpacing={2}>
+        <Grid size={{ xs: 12, md: 7 }} sx={{ display: 'flex' }}>
           <Paper variant="outlined" sx={{ p: 2, height: 360 }}>
             <Typography variant="subtitle1" fontWeight={600} gutterBottom>
               Completion trend
             </Typography>
             <ResponsiveContainer width="100%" height="90%">
               <LineChart data={completionTrend}>
-                <CartesianGrid strokeDasharray="3 3" />
+                <CartesianGrid strokeDasharray="3 3" stroke={trendColors.grid} />
                 <XAxis dataKey="month" />
                 <YAxis allowDecimals={false} />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="Done" stroke="#22c55e" strokeWidth={2} />
-                <Line type="monotone" dataKey="Planned" stroke="#4f46e5" strokeWidth={2} />
+                <Line type="monotone" dataKey="Done" stroke={trendColors.done} strokeWidth={2} />
+                <Line type="monotone" dataKey="Planned" stroke={trendColors.planned} strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={5}>
+        <Grid size={{ xs: 12, md: 5 }} sx={{ display: 'flex' }}>
           <Paper variant="outlined" sx={{ p: 2, height: 360 }}>
             <Typography variant="subtitle1" fontWeight={600} gutterBottom>
               Project status breakdown
@@ -215,7 +238,7 @@ const ReportsPage = () => {
               <PieChart>
                 <Pie data={statusData} dataKey="value" nameKey="name" innerRadius={50} outerRadius={100} label>
                   {statusData.map((entry, index) => (
-                    <Cell key={`cell-${entry.name}`} fill={STATUS_COLORS[index % STATUS_COLORS.length]} />
+                    <Cell key={`cell-${entry.name}`} fill={statusColors[index % statusColors.length]} />
                   ))}
                 </Pie>
                 <Tooltip />
@@ -231,13 +254,13 @@ const ReportsPage = () => {
         </Typography>
         <ResponsiveContainer width="100%" height="90%">
           <BarChart data={topContributors}>
-            <CartesianGrid strokeDasharray="3 3" />
+            <CartesianGrid strokeDasharray="3 3" stroke={trendColors.grid} />
             <XAxis dataKey="name" />
             <YAxis allowDecimals={false} />
             <Tooltip />
             <Bar dataKey="Tasks">
               {topContributors.map((entry, index) => (
-                <Cell key={entry.name} fill={CONTRIBUTOR_COLORS[index % CONTRIBUTOR_COLORS.length]} />
+                <Cell key={entry.name} fill={contributorColors[index % contributorColors.length]} />
               ))}
             </Bar>
           </BarChart>

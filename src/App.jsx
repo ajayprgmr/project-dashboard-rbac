@@ -10,23 +10,44 @@ import NotificationCenter from './components/common/feedback/NotificationCenter'
 const paletteTokens = {
   light: {
     primary: {
-      main: '#0066ff',
+      main: '#4c8bf5',
+      light: '#79a7ff',
+      dark: '#2f6fd1',
     },
     secondary: {
-      main: '#6c63ff',
+      main: '#51bfae',
+      light: '#7ed4c5',
+      dark: '#3c8f82',
     },
     background: {
-      default: '#f5f7fb',
+      default: '#f1f4f9',
       paper: '#ffffff',
+    },
+    divider: '#d7dee8',
+    text: {
+      primary: '#1f2937',
+      secondary: '#4b5563',
     },
   },
   dark: {
     primary: {
-      main: '#90caf9',
+      main: '#8bb4ff',
+      light: '#adcaff',
+      dark: '#5e8de0',
+    },
+    secondary: {
+      main: '#5ac7b7',
+      light: '#78d7c7',
+      dark: '#3f9286',
     },
     background: {
-      default: '#0c111f',
-      paper: '#151a2c',
+      default: '#0f172a',
+      paper: '#131c31',
+    },
+    divider: '#1e293b',
+    text: {
+      primary: '#e2e8f0',
+      secondary: '#94a3b8',
     },
   },
 };
@@ -74,7 +95,7 @@ function App() {
         FormHelperText: {
           styleOverrides: {
             root: {
-              marginLeft:'unset'
+              marginLeft: 'unset'
             }
           }
         }
@@ -128,7 +149,7 @@ function App() {
           'html, body': {
             height: '100%',
             margin: 0,
-            padding:0,
+            padding: 0,
             backgroundColor: baseTheme.palette.background.default,
             overscrollBehavior: 'none',
           },
