@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   AppBar,
   Avatar,
@@ -30,6 +30,8 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import CloseIcon from '@mui/icons-material/Close';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
@@ -38,6 +40,7 @@ import { logout, stopImpersonation } from '../features/auth/authSlice';
 import ConfirmDialog from '../components/common/feedback/ConfirmDialog';
 
 const drawerWidth = 260;
+const collapsedDrawerWidth = 76;
 
 const navigationItems = [
   {
@@ -72,7 +75,7 @@ const navigationItems = [
   },
 ];
 
-const DrawerContent = ({ onNavigate }) => {
+const DrawerContent = ({ onNavigate, collapsed, onToggleCollapse }) => {
   const location = useLocation();
   const user = useAppSelector((state) => state.auth.user);
 
@@ -83,36 +86,88 @@ const DrawerContent = ({ onNavigate }) => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      <Toolbar>
-        <Typography variant="h6" noWrap component="div">
-          Fixl Projects
-        </Typography>
+      <Toolbar
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: collapsed ? 'center' : 'space-between',
+          px: collapsed ? 0 : 2,
+          py: 2,
+        }}
+      >
+        {!collapsed && (
+          <Typography variant="h6" noWrap component="div">
+            Fixl Projects
+          </Typography>
+        )}
+        <Tooltip title={collapsed ? 'Expand navigation' : 'Collapse navigation'} placement="right">
+          <IconButton size="small" onClick={onToggleCollapse} aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}>
+            {collapsed ? <ChevronRightIcon fontSize="small" /> : <ChevronLeftIcon fontSize="small" />}
+          </IconButton>
+        </Tooltip>
       </Toolbar>
       <Divider />
-      <List sx={{ flexGrow: 1 }}>
+      <List sx={{ flexGrow: 1, py: 1 }}>
         {items.map((item) => {
           const Icon = item.icon;
           const selected = location.pathname.startsWith(item.path);
+          const button = (
+            <ListItemButton
+              selected={selected}
+              onClick={() => onNavigate(item.path)}
+              sx={{
+                minHeight: 44,
+                justifyContent: collapsed ? 'center' : 'flex-start',
+                px: collapsed ? 1.5 : 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: collapsed ? 0 : 2,
+                  justifyContent: 'center',
+                  color: selected ? 'primary.main' : 'text.secondary',
+                }}
+              >
+                <Icon fontSize="small" />
+              </ListItemIcon>
+              {!collapsed && <ListItemText primary={item.label} primaryTypographyProps={{ fontWeight: selected ? 600 : 500 }} />}
+            </ListItemButton>
+          );
           return (
             <ListItem key={item.path} disablePadding>
-              <ListItemButton selected={selected} onClick={() => onNavigate(item.path)}>
-                <ListItemIcon>
-                  <Icon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary={item.label} />
-              </ListItemButton>
+              {collapsed ? (
+                <Tooltip title={item.label} placement="right">
+                  {button}
+                </Tooltip>
+              ) : (
+                button
+              )}
             </ListItem>
           );
         })}
       </List>
       <Divider />
-      <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Avatar>{user?.name?.charAt(0) || '?'}</Avatar>
-        <Box>
-          <Typography variant="subtitle2">{user?.name}</Typography>
-          <Typography variant="caption" sx={{ textTransform: 'capitalize' }}>
-            {user?.role?.replace('_', ' ')}
-          </Typography>
+      <Box sx={{ p: 2 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: collapsed ? 'center' : 'flex-start',
+            gap: collapsed ? 0 : 2,
+          }}
+        >
+          <Avatar>{user?.name?.charAt(0) || '?'}</Avatar>
+          {!collapsed && (
+            <Box>
+              <Typography variant="subtitle2" noWrap>
+                {user?.name}
+              </Typography>
+              <Typography variant="caption" sx={{ textTransform: 'capitalize' }} color="text.secondary">
+                {user?.role?.replace('_', ' ')}
+              </Typography>
+            </Box>
+          )}
         </Box>
       </Box>
     </Box>
@@ -127,7 +182,25 @@ const AppShell = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
+  const [desktopInitialized, setDesktopInitialized] = useState(false);
+  const prevIsDesktop = useRef(isDesktop);
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
+
+  useEffect(() => {
+    if (isDesktop && !desktopInitialized) {
+      setDesktopInitialized(true);
+      if (ui.sidebarCollapsed) {
+        dispatch(toggleSidebar());
+      }
+    }
+  }, [dispatch, isDesktop, desktopInitialized, ui.sidebarCollapsed]);
+
+  useEffect(() => {
+    if (!isDesktop && prevIsDesktop.current && !ui.sidebarCollapsed) {
+      dispatch(toggleSidebar());
+    }
+    prevIsDesktop.current = isDesktop;
+  }, [dispatch, isDesktop, ui.sidebarCollapsed]);
 
   const handleDrawerToggle = () => {
     dispatch(toggleSidebar());
@@ -150,17 +223,27 @@ const AppShell = () => {
     navigate('/login');
   };
 
+  const isCollapsed = isDesktop ? ui.sidebarCollapsed : false;
+  const currentDrawerWidth = isDesktop ? (isCollapsed ? collapsedDrawerWidth : drawerWidth) : drawerWidth;
+  const drawerVariant = isDesktop ? 'permanent' : 'temporary';
+  const isDrawerOpen = isDesktop ? true : !ui.sidebarCollapsed;
+
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar
         position="fixed"
         color="inherit"
         sx={{
-          width: { lg: `calc(100% - ${drawerWidth}px)` },
-          ml: { lg: `${drawerWidth}px` },
+          width: { lg: `calc(100% - ${currentDrawerWidth}px)` },
+          ml: { lg: `${currentDrawerWidth}px` },
           borderBottom: 1,
           borderColor: 'divider',
           boxShadow: 'none',
+          transition: (themeArg) =>
+            themeArg.transitions.create(['margin-left', 'width'], {
+              easing: themeArg.transitions.easing.sharp,
+              duration: themeArg.transitions.duration.standard,
+            }),
         }}
       >
         <Toolbar sx={{ gap: 2 }}>
@@ -208,22 +291,43 @@ const AppShell = () => {
       </AppBar>
       <Box
         component="nav"
-        sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 } }}
+        sx={{
+          width: { lg: currentDrawerWidth },
+          flexShrink: { lg: 0 },
+          transition: (themeArg) =>
+            themeArg.transitions.create('width', {
+              easing: themeArg.transitions.easing.easeInOut,
+              duration: themeArg.transitions.duration.standard,
+            }),
+        }}
         aria-label="navigation"
       >
         <Drawer
-          variant={isDesktop ? 'permanent' : 'temporary'}
-          open={isDesktop ? true : !ui.sidebarCollapsed}
-          onClose={isDesktop ? undefined : handleDrawerToggle}
+          variant={drawerVariant}
+          open={drawerVariant === 'temporary' ? isDrawerOpen : undefined}
+          onClose={drawerVariant === 'temporary' ? handleDrawerToggle : undefined}
           ModalProps={{ keepMounted: true }}
           sx={{
+            width: { lg: currentDrawerWidth },
+            flexShrink: 0,
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
-              width: drawerWidth,
+              width: currentDrawerWidth,
+              overflowX: 'hidden',
+              backgroundColor: theme.palette.background.paper,
+              borderRight: `1px solid ${theme.palette.divider}`,
+              transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.easeInOut,
+                duration: theme.transitions.duration.standard,
+              }),
             },
           }}
         >
-          <DrawerContent onNavigate={handleNavigate} />
+          <DrawerContent
+            onNavigate={handleNavigate}
+            collapsed={isCollapsed}
+            onToggleCollapse={() => dispatch(toggleSidebar())}
+          />
         </Drawer>
       </Box>
       <Box
@@ -233,7 +337,12 @@ const AppShell = () => {
           p: 3,
           mt: 8,
           minHeight: '100vh',
-          backgroundColor: theme.palette.mode === 'dark' ? 'grey.900' : 'grey.50',
+          backgroundColor: theme.palette.background.default,
+          transition: (themeArg) =>
+            themeArg.transitions.create(['margin-left', 'padding'], {
+              easing: themeArg.transitions.easing.sharp,
+              duration: themeArg.transitions.duration.standard,
+            }),
         }}
       >
         <Outlet key={location.pathname} />

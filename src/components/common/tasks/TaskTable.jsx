@@ -1,4 +1,5 @@
 import {
+  Box,
   IconButton,
   Paper,
   Stack,
@@ -70,7 +71,7 @@ const TaskTable = ({ tasks, onEdit, onDelete, isReadOnly }) => (
             <TableCell>{task.dueDate ? new Date(task.dueDate).toLocaleDateString() : '—'}</TableCell>
             <TableCell align="right">
               {!isReadOnly && (
-                <Stack direction="row" spacing={1} justifyContent="flex-end">
+                <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end' }}>
                   {task.canEdit && (
                     <Tooltip title="Edit task">
                       <IconButton size="small" onClick={() => onEdit(task)}>
@@ -85,7 +86,7 @@ const TaskTable = ({ tasks, onEdit, onDelete, isReadOnly }) => (
                       </IconButton>
                     </Tooltip>
                   )}
-                </Stack>
+                </Box>
               )}
             </TableCell>
           </TableRow>

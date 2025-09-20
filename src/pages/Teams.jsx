@@ -6,7 +6,6 @@ import {
   Button,
   Chip,
   Divider,
-  Grid,
   List,
   ListItem,
   ListItemAvatar,
@@ -17,6 +16,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import EventIcon from '@mui/icons-material/Event';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
@@ -173,31 +173,36 @@ const TeamsPage = () => {
 
       {selectedProject && (
         <Paper variant="outlined" sx={{ p: 3 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
+          <Grid container columns={{ xs: 12, md: 12 }} rowSpacing={2} columnSpacing={2}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Stack spacing={1.5}>
                 <Typography variant="subtitle2" color="text.secondary">
                   Overview
                 </Typography>
-                <Stack direction="row" spacing={1} alignItems="center">
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <LeaderboardIcon fontSize="small" color="primary" />
                   <Typography variant="body2">
                     {memberDetails.length} team members
                   </Typography>
-                </Stack>
-                <Stack direction="row" spacing={1} alignItems="center">
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <EventIcon fontSize="small" color="action" />
                   <Typography variant="body2">
                     Due {selectedProject.dueDate ? new Date(selectedProject.dueDate).toLocaleDateString() : 'TBD'}
                   </Typography>
-                </Stack>
-                <Typography variant="body2" color="text.secondary">
-                  Status:{' '}
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Typography variant="body2" color="text.secondary" component="span">
+                    Status:
+                  </Typography>
                   <Chip size="small" label={selectedProject.status.replace('_', ' ')} sx={{ textTransform: 'capitalize' }} />
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Tag: <Chip size="small" variant="outlined" label={selectedProject.tag || 'General'} />
-                </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Typography variant="body2" color="text.secondary" component="span">
+                    Tag:
+                  </Typography>
+                  <Chip size="small" variant="outlined" label={selectedProject.tag || 'General'} />
+                </Box>
                 <Typography variant="body2" color="text.secondary">
                   Countdown:{' '}
                   {selectedProject.dueDate
@@ -212,9 +217,9 @@ const TeamsPage = () => {
                 </Typography>
               </Stack>
             </Grid>
-            <Grid item xs={12} md={8}>
-              <Stack spacing={2}>
-                <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <Grid size={{ xs: 12, md: 8 }} sx={{ display: 'flex' }}>
+              <Stack spacing={2} sx={{ width: '100%' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
                   <Typography variant="subtitle2" color="text.secondary">
                     Team members
                   </Typography>
@@ -231,7 +236,7 @@ const TeamsPage = () => {
                       Manage members
                     </Button>
                   )}
-                </Stack>
+                </Box>
                 <Divider />
                 <List dense>
                   {memberDetails.map((member) => (

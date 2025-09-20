@@ -8,7 +8,6 @@ import {
   CardContent,
   Chip,
   CircularProgress,
-  Grid,
   IconButton,
   MenuItem,
   Paper,
@@ -25,6 +24,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
@@ -246,16 +246,16 @@ const ProjectsPage = () => {
                   {project.dueDate ? new Date(project.dueDate).toLocaleDateString() : '—'}
                 </TableCell>
                 <TableCell>
-                  <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                     {memberNames.length ? (
                       memberNames.map((name) => <Chip key={name} label={name} size="small" />)
                     ) : (
                       <Chip label="No members" size="small" variant="outlined" />
                     )}
-                  </Stack>
+                  </Box>
                 </TableCell>
                 <TableCell align="right">
-                  <Stack direction="row" spacing={1} justifyContent="flex-end">
+                  <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end' }}>
                     {canEdit && (
                       <Tooltip title="Edit project">
                         <IconButton size="small" onClick={() => handleOpenDialog('edit', project)}>
@@ -277,7 +277,7 @@ const ProjectsPage = () => {
                         </IconButton>
                       </Tooltip>
                     )}
-                  </Stack>
+                  </Box>
                 </TableCell>
               </TableRow>
             );
@@ -288,7 +288,7 @@ const ProjectsPage = () => {
   );
 
   const renderCards = () => (
-    <Grid container spacing={2}>
+    <Grid container columns={{ xs: 12, md: 12, lg: 12 }} rowSpacing={2} columnSpacing={2}>
       {visibleProjects.map((project) => {
         const statusChip = statusChips[project.status] ?? { label: project.status, color: 'default' };
         const canEdit =
@@ -299,33 +299,33 @@ const ProjectsPage = () => {
           ?.map((memberId) => usersState.items.find((user) => user.id === memberId)?.name)
           .filter(Boolean);
         return (
-          <Grid key={project.id} item xs={12} md={6} lg={4}>
+          <Grid key={project.id} size={{ xs: 12, md: 6, lg: 4 }} sx={{ display: 'flex' }}>
             <Card variant="outlined" sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
               <CardContent sx={{ flexGrow: 1 }}>
                 <Stack spacing={1.5}>
-                  <Stack direction="row" spacing={1} alignItems="center" justifyContent="space-between">
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
                     <Typography variant="h6">{project.name}</Typography>
                     <Chip label={project.tag || 'General'} size="small" variant="outlined" />
-                  </Stack>
+                  </Box>
                   <Typography variant="body2" color="text.secondary">
                     {project.description}
                   </Typography>
-                  <Stack direction="row" spacing={1} alignItems="center">
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <Chip size="small" label={statusChip.label} color={statusChip.color} variant="outlined" />
                     <Typography variant="caption" color="text.secondary">
                       Due {project.dueDate ? new Date(project.dueDate).toLocaleDateString() : 'TBD'}
                     </Typography>
-                  </Stack>
+                  </Box>
                   <Typography variant="caption" color="text.secondary">
                     Managed by {manager?.name || 'Unassigned'}
                   </Typography>
-                  <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                     {memberNames?.length ? (
                       memberNames.map((name) => <Chip key={name} label={name} size="small" />)
                     ) : (
                       <Chip label="No members" size="small" variant="outlined" />
                     )}
-                  </Stack>
+                  </Box>
                 </Stack>
               </CardContent>
               {(canEdit || canDelete) && (
