@@ -16,7 +16,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import EventIcon from '@mui/icons-material/Event';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
@@ -174,7 +174,7 @@ const TeamsPage = () => {
       {selectedProject && (
         <Paper variant="outlined" sx={{ p: 3 }}>
           <Grid container columns={{ xs: 12, md: 12 }} rowSpacing={2} columnSpacing={2}>
-            <Grid size={{ xs: 12, md: 4 }}>
+            <Grid item xs={12} md={4}>
               <Stack spacing={1.5}>
                 <Typography variant="subtitle2" color="text.secondary">
                   Overview
@@ -217,7 +217,7 @@ const TeamsPage = () => {
                 </Typography>
               </Stack>
             </Grid>
-            <Grid size={{ xs: 12, md: 8 }} sx={{ display: 'flex' }}>
+            <Grid item xs={12} md={8} sx={{ display: 'flex' }}>
               <Stack spacing={2} sx={{ width: '100%' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
                   <Typography variant="subtitle2" color="text.secondary">
