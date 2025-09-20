@@ -2,6 +2,16 @@
 
 A Jira-inspired project management dashboard featuring role-based access, Kanban and table task views, team controls, and analytics – all built with React, Redux Toolkit, and Vite. State is persisted to `localStorage`, allowing mock users to pick up where they left off.
 
+## Mock Credentials
+| Role | Name | Email | Password |
+| --- | --- | --- | --- |
+| Admin | Aarav Sharma | `aarav.sharma@fixl.test` | `admin123` |
+| Project Manager | Maya Patel | `maya.patel@fixl.test` | `manager123` |
+| Project Manager | Rohan Iyer | `rohan.iyer@fixl.test` | `manager123` |
+| Developer | Neha Singh | `neha.singh@fixl.test` | `dev123` |
+| Developer | Kabir Mehta | `kabir.mehta@fixl.test` | `dev123` |
+| Viewer | Ananya Rao | `ananya.rao@fixl.test` | `viewer123` |
+
 ## Feature Highlights
 - **Authentication & Roles** – Mock login via Formik + Yup with persisted sessions for Admin, Project Manager, Developer, and Viewer personas. Admins can impersonate any account.
 - **Projects Workspace** – Card/table views with filters, role-aware CRUD, and quick member insights.
@@ -31,16 +41,6 @@ npm run build
 npm run preview
 ```
 
-## Mock Credentials
-| Role | Name | Email | Password |
-| --- | --- | --- | --- |
-| Admin | Aarav Sharma | `aarav.sharma@fixl.test` | `admin123` |
-| Project Manager | Maya Patel | `maya.patel@fixl.test` | `manager123` |
-| Project Manager | Rohan Iyer | `rohan.iyer@fixl.test` | `manager123` |
-| Developer | Neha Singh | `neha.singh@fixl.test` | `dev123` |
-| Developer | Kabir Mehta | `kabir.mehta@fixl.test` | `dev123` |
-| Viewer | Ananya Rao | `ananya.rao@fixl.test` | `viewer123` |
-
 ## Role-Based Access Matrix
 | Module | Admin | Project Manager | Developer | Viewer |
 | --- | --- | --- | --- | --- |
@@ -54,14 +54,24 @@ npm run preview
 ## Project Structure
 ```
 src/
+├─ App.jsx           # Root component with routing shell
+├─ main.jsx          # Vite/React entry point
 ├─ assets/           # Static images/icons if needed
-├─ components/       # Shared, feature-agnostic UI (dialogs, notifications)
+├─ components/       # Shared UI building blocks
+│  └─ common/        # Cross-cutting primitives (buttons, inputs, etc.)
 ├─ data/             # Mock JSON seeds for users/projects/tasks
-├─ features/         # Domain logic (slices, async thunks, feature components)
+├─ features/         # Domain slices, async thunks, feature-specific UI
+│  ├─ admin/
+│  ├─ auth/
+│  ├─ projects/
+│  ├─ reports/
+│  ├─ tasks/
+│  ├─ teams/
+│  └─ ui/
 ├─ hooks/            # Reusable hooks (`useRedux`, etc.)
 ├─ layouts/          # Application shell / navigational chrome
 ├─ pages/            # Route-level screens wiring features together
-├─ routes/           # Router + route guards
+├─ routes/           # Router + guards and route configs
 ├─ store/            # Redux Toolkit store configuration & persistence
 └─ utils/            # Mock API + localStorage helpers
 ```
