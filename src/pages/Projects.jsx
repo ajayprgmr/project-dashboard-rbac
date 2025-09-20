@@ -24,7 +24,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
@@ -293,7 +293,7 @@ const ProjectsPage = () => {
           ?.map((memberId) => usersState.items.find((user) => user.id === memberId)?.name)
           .filter(Boolean);
         return (
-          <Grid key={project.id} size={{ xs: 12, md: 6, lg: 4 }} sx={{ display: 'flex' }}>
+          <Grid key={project.id} item xs={12} md={6} lg={4} sx={{ display: 'flex' }}>
             <Card variant="outlined" sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
               <CardContent sx={{ flexGrow: 1 }}>
                 <Stack spacing={1.5}>

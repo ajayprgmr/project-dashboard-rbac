@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { Box, CircularProgress, Paper, Stack, Typography, Chip } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import { alpha, darken, lighten, useTheme } from '@mui/material/styles';
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, PieChart, Pie, Cell, BarChart, Bar } from 'recharts';
 import { format, parseISO } from 'date-fns';
@@ -158,7 +158,7 @@ const ReportsPage = () => {
       </Box>
 
       <Grid container columns={{ xs: 12, md: 12, lg: 12 }} rowSpacing={2} columnSpacing={2}>
-        <Grid size={{ xs: 12, md: 3 }}>
+        <Grid item xs={12} md={3}>
           <Paper variant="outlined" sx={{ p: 2, height: '100%' }}>
             <Typography variant="subtitle2" color="text.secondary">
               Active projects
@@ -169,7 +169,7 @@ const ReportsPage = () => {
             <Chip label={`${metrics.projectCount} total`} size="small" variant="outlined" sx={{ mt: 1 }} />
           </Paper>
         </Grid>
-        <Grid size={{ xs: 12, md: 3 }}>
+        <Grid item xs={12} md={3}>
           <Paper variant="outlined" sx={{ p: 2, height: '100%' }}>
             <Typography variant="subtitle2" color="text.secondary">
               Task completion rate
@@ -182,7 +182,7 @@ const ReportsPage = () => {
             </Typography>
           </Paper>
         </Grid>
-        <Grid size={{ xs: 12, md: 3 }}>
+        <Grid item xs={12} md={3}>
           <Paper variant="outlined" sx={{ p: 2, height: '100%' }}>
             <Typography variant="subtitle2" color="text.secondary">
               Team members
@@ -195,7 +195,7 @@ const ReportsPage = () => {
             </Typography>
           </Paper>
         </Grid>
-        <Grid size={{ xs: 12, md: 3 }}>
+        <Grid item xs={12} md={3}>
           <Paper variant="outlined" sx={{ p: 2, height: '100%' }}>
             <Typography variant="subtitle2" color="text.secondary">
               Snapshot updated
@@ -211,7 +211,7 @@ const ReportsPage = () => {
       </Grid>
 
       <Grid container columns={{ xs: 12, md: 12, lg: 12 }} rowSpacing={2} columnSpacing={2}>
-        <Grid size={{ xs: 12, md: 7 }}>
+        <Grid item xs={12} md={7}>
           <Paper variant="outlined" sx={{ p: 2, height: 360, width: '100%' }}>
             <Typography variant="subtitle1" fontWeight={600} gutterBottom>
               Completion trend
@@ -229,7 +229,7 @@ const ReportsPage = () => {
             </ResponsiveContainer>
           </Paper>
         </Grid>
-        <Grid size={{ xs: 12, md: 5 }}>
+        <Grid item xs={12} md={5}>
           <Paper variant="outlined" sx={{ p: 2, height: 360, width: '100%' }}>
             <Typography variant="subtitle1" fontWeight={600} gutterBottom>
               Project status breakdown
