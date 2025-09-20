@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Alert, Snackbar } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useRedux';
-import { dismissNotification } from '../../../features/ui/uiSlice';
+import { dismissNotification } from '../../../features/ui';
 
 const autoHideDuration = 4000;
 

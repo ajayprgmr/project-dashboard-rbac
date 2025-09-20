@@ -22,10 +22,10 @@ import LoginIcon from '@mui/icons-material/Login';
 import ShieldIcon from '@mui/icons-material/Shield';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
-import { fetchUsers, updateUserRole } from '../features/admin/userManagementSlice';
-import { fetchProjects } from '../features/projects/projectsSlice';
-import { impersonateUser } from '../features/auth/authSlice';
-import { pushNotification } from '../features/ui/uiSlice';
+import { fetchUsers, updateUserRole } from '../features/admin';
+import { fetchProjects } from '../features/projects';
+import { impersonateUser } from '../features/auth';
+import { pushNotification } from '../features/ui';
 import RoleAssignmentDialog from '../components/common/admin/RoleAssignmentDialog';
 
 const roleLabels = {

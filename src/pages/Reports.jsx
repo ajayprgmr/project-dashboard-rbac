@@ -5,9 +5,9 @@ import { alpha, darken, lighten, useTheme } from '@mui/material/styles';
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, PieChart, Pie, Cell, BarChart, Bar } from 'recharts';
 import { format, parseISO } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
-import { fetchReportsSnapshot } from '../features/reports/reportsSlice';
-import { fetchProjects } from '../features/projects/projectsSlice';
-import { fetchTasks } from '../features/tasks/tasksSlice';
+import { fetchReportsSnapshot } from '../features/reports';
+import { fetchProjects } from '../features/projects';
+import { fetchTasks } from '../features/tasks';
 
 const ReportsPage = () => {
   const dispatch = useAppDispatch();
@@ -158,8 +158,8 @@ const ReportsPage = () => {
       </Box>
 
       <Grid container columns={{ xs: 12, md: 12, lg: 12 }} rowSpacing={2} columnSpacing={2}>
-        <Grid size={{ xs: 12, md: 3 }} sx={{ display: 'flex' }}>
-          <Paper variant="outlined" sx={{ p: 2 }}>
+        <Grid size={{ xs: 12, md: 3 }}>
+          <Paper variant="outlined" sx={{ p: 2, height: '100%' }}>
             <Typography variant="subtitle2" color="text.secondary">
               Active projects
             </Typography>
@@ -169,8 +169,8 @@ const ReportsPage = () => {
             <Chip label={`${metrics.projectCount} total`} size="small" variant="outlined" sx={{ mt: 1 }} />
           </Paper>
         </Grid>
-        <Grid size={{ xs: 12, md: 3 }} sx={{ display: 'flex' }}>
-          <Paper variant="outlined" sx={{ p: 2 }}>
+        <Grid size={{ xs: 12, md: 3 }}>
+          <Paper variant="outlined" sx={{ p: 2, height: '100%' }}>
             <Typography variant="subtitle2" color="text.secondary">
               Task completion rate
             </Typography>
@@ -182,8 +182,8 @@ const ReportsPage = () => {
             </Typography>
           </Paper>
         </Grid>
-        <Grid size={{ xs: 12, md: 3 }} sx={{ display: 'flex' }}>
-          <Paper variant="outlined" sx={{ p: 2 }}>
+        <Grid size={{ xs: 12, md: 3 }}>
+          <Paper variant="outlined" sx={{ p: 2, height: '100%' }}>
             <Typography variant="subtitle2" color="text.secondary">
               Team members
             </Typography>
@@ -195,8 +195,8 @@ const ReportsPage = () => {
             </Typography>
           </Paper>
         </Grid>
-        <Grid size={{ xs: 12, md: 3 }} sx={{ display: 'flex' }}>
-          <Paper variant="outlined" sx={{ p: 2 }}>
+        <Grid size={{ xs: 12, md: 3 }}>
+          <Paper variant="outlined" sx={{ p: 2, height: '100%' }}>
             <Typography variant="subtitle2" color="text.secondary">
               Snapshot updated
             </Typography>
@@ -211,8 +211,8 @@ const ReportsPage = () => {
       </Grid>
 
       <Grid container columns={{ xs: 12, md: 12, lg: 12 }} rowSpacing={2} columnSpacing={2}>
-        <Grid size={{ xs: 12, md: 7 }} sx={{ display: 'flex' }}>
-          <Paper variant="outlined" sx={{ p: 2, height: 360 }}>
+        <Grid size={{ xs: 12, md: 7 }}>
+          <Paper variant="outlined" sx={{ p: 2, height: 360, width: '100%' }}>
             <Typography variant="subtitle1" fontWeight={600} gutterBottom>
               Completion trend
             </Typography>
@@ -229,8 +229,8 @@ const ReportsPage = () => {
             </ResponsiveContainer>
           </Paper>
         </Grid>
-        <Grid size={{ xs: 12, md: 5 }} sx={{ display: 'flex' }}>
-          <Paper variant="outlined" sx={{ p: 2, height: 360 }}>
+        <Grid size={{ xs: 12, md: 5 }}>
+          <Paper variant="outlined" sx={{ p: 2, height: 360, width: '100%' }}>
             <Typography variant="subtitle1" fontWeight={600} gutterBottom>
               Project status breakdown
             </Typography>

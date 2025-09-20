@@ -30,17 +30,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { differenceInCalendarDays, parseISO } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
-import {
-  createProject,
-  deleteProject,
-  fetchProjects,
-  setProjectFilter,
-  updateProject,
-} from '../features/projects/projectsSlice';
-import { fetchUsers } from '../features/admin/userManagementSlice';
+import { createProject, deleteProject, fetchProjects, setProjectFilter, updateProject } from '../features/projects';
+import { fetchUsers } from '../features/admin';
 import ProjectDialog from '../components/common/projects/ProjectDialog';
 import ConfirmDialog from '../components/common/feedback/ConfirmDialog';
-import { pushNotification } from '../features/ui/uiSlice';
+import { pushNotification } from '../features/ui';
 
 const statusOptions = [
   { value: 'all', label: 'All statuses' },

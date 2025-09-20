@@ -4,7 +4,7 @@ import { CssBaseline, useMediaQuery } from '@mui/material';
 import { createTheme, ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import AppRouter from './routes/AppRouter';
 import { useAppDispatch, useAppSelector } from './hooks/useRedux';
-import { setTheme } from './features/ui/uiSlice';
+import { setTheme } from './features/ui';
 import NotificationCenter from './components/common/feedback/NotificationCenter';
 
 const paletteTokens = {

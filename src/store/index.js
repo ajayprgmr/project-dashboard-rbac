@@ -1,17 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from '../features/auth/authSlice';
-import usersReducer from '../features/admin/userManagementSlice';
-import projectsReducer from '../features/projects/projectsSlice';
-import tasksReducer from '../features/tasks/tasksSlice';
-import uiReducer from '../features/ui/uiSlice';
-import reportsReducer from '../features/reports/reportsSlice';
+import authReducer from '../features/auth';
+import usersReducer from '../features/admin';
+import projectsReducer from '../features/projects';
+import tasksReducer from '../features/tasks';
+import uiReducer from '../features/ui';
+import reportsReducer from '../features/reports';
 import { loadState, saveState } from '../utils/storage';
-import { hydrateMockApi } from '../utils/mockApi';
+import { hydrateMockStore } from '../utils/mockStore';
 
 const preloadedState = loadState();
 
 if (preloadedState) {
-  hydrateMockApi({
+  hydrateMockStore({
     usersSnapshot: preloadedState.users?.items,
     projectsSnapshot: preloadedState.projects?.items,
     tasksSnapshot: preloadedState.tasks?.items,

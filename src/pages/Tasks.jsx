@@ -14,14 +14,14 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import { differenceInCalendarDays, parseISO } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
-import { createTask, deleteTask, fetchTasks, setTaskFilter, updateTask } from '../features/tasks/tasksSlice';
-import { fetchProjects } from '../features/projects/projectsSlice';
-import { fetchUsers } from '../features/admin/userManagementSlice';
+import { createTask, deleteTask, fetchTasks, setTaskFilter, updateTask } from '../features/tasks';
+import { fetchProjects } from '../features/projects';
+import { fetchUsers } from '../features/admin';
 import TaskDialog from '../components/common/tasks/TaskDialog';
 import TaskBoard from '../components/common/tasks/TaskBoard';
 import TaskTable from '../components/common/tasks/TaskTable';
 import ConfirmDialog from '../components/common/feedback/ConfirmDialog';
-import { pushNotification } from '../features/ui/uiSlice';
+import { pushNotification } from '../features/ui';
 
 const statusFilterOptions = [
   { value: 'all', label: 'Any status' },

@@ -22,11 +22,11 @@ import EventIcon from '@mui/icons-material/Event';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import { differenceInCalendarDays } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
-import { fetchProjects, assignProjectMembers } from '../features/projects/projectsSlice';
-import { fetchUsers } from '../features/admin/userManagementSlice';
-import { fetchTasks } from '../features/tasks/tasksSlice';
+import { fetchProjects, assignProjectMembers } from '../features/projects';
+import { fetchUsers } from '../features/admin';
+import { fetchTasks } from '../features/tasks';
 import MemberAssignmentDialog from '../components/common/teams/MemberAssignmentDialog';
-import { pushNotification } from '../features/ui/uiSlice';
+import { pushNotification } from '../features/ui';
 
 const roleColors = {
   admin: 'primary',

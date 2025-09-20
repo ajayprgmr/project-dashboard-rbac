@@ -35,8 +35,8 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
-import { toggleSidebar, toggleTheme, setGlobalSearch } from '../features/ui/uiSlice';
-import { logout, stopImpersonation } from '../features/auth/authSlice';
+import { toggleSidebar, toggleTheme, setGlobalSearch } from '../features/ui';
+import { logout, stopImpersonation } from '../features/auth';
 import ConfirmDialog from '../components/common/feedback/ConfirmDialog';
 
 const drawerWidth = 260;
@@ -246,7 +246,7 @@ const AppShell = () => {
             }),
         }}
       >
-        <Toolbar sx={{ gap: 2 }}>
+        <Toolbar sx={{ justifyContent: 'space-between'}}>
           <IconButton color="inherit" edge="start" onClick={handleDrawerToggle} sx={{ display: { lg: 'none' } }}>
             <MenuIcon />
           </IconButton>
@@ -255,7 +255,7 @@ const AppShell = () => {
             placeholder="Search projects, tasks, people"
             value={ui.globalSearch}
             onChange={(event) => dispatch(setGlobalSearch(event.target.value))}
-            sx={{ maxWidth: 320, flexGrow: 1 }}
+            sx={{ flexGrow: 1, maxWidth: { xs: '100%', sm: 360, md: 420 } }}
             InputProps={{
               endAdornment: ui.globalSearch ? (
                 <InputAdornment position="end">
@@ -266,27 +266,29 @@ const AppShell = () => {
               ) : null,
             }}
           />
-          <Tooltip title="Toggle theme">
-            <IconButton color="inherit" onClick={() => dispatch(toggleTheme())}>
-              {theme.palette.mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
-            </IconButton>
-          </Tooltip>
-          {originalUser && (
-            <Button
-              color="warning"
-              variant="contained"
-              size="small"
-              onClick={() => dispatch(stopImpersonation())}
-              startIcon={<PersonIcon />}
-            >
-              Return to {originalUser.name.split(' ')[0]}
-            </Button>
-          )}
-          <Tooltip title="Logout">
-            <IconButton color="inherit" onClick={handleLogoutRequest}>
-              <LogoutIcon />
-            </IconButton>
-          </Tooltip>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+            <Tooltip title="Toggle theme">
+              <IconButton color="inherit" onClick={() => dispatch(toggleTheme())}>
+                {theme.palette.mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
+              </IconButton>
+            </Tooltip>
+            {originalUser && (
+              <Button
+                color="warning"
+                variant="contained"
+                size="small"
+                onClick={() => dispatch(stopImpersonation())}
+                startIcon={<PersonIcon />}
+              >
+                Return to {originalUser.name.split(' ')[0]}
+              </Button>
+            )}
+            <Tooltip title="Logout">
+              <IconButton color="inherit" onClick={handleLogoutRequest}>
+                <LogoutIcon />
+              </IconButton>
+            </Tooltip>
+          </Box>
         </Toolbar>
       </AppBar>
       <Box
