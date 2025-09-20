@@ -134,9 +134,16 @@ const LoginPage = () => {
           <Typography variant="body2" color="text.secondary">
             Need demo credentials?
           </Typography>
-          <Link component="button" onClick={() => navigate('/login?help=true')} variant="body2">
+          <Link
+            variant="body2"
+            component="a"
+            href="https://github.com/ajayprgmr/project-dashboard-rbac/blob/main/README.md"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             View README for mock user list
           </Link>
+
         </Box>
       </Paper>
     </Container>
